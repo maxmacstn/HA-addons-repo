@@ -21,3 +21,5 @@ schema:
   cameras:
     - name: str
       url: url
+
+url: https://github.com/maxmacstn/HA-addons-repo/tree/main/rtsp2mjpeg
