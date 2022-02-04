@@ -1,0 +1,4 @@
+# https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
+name: MaxMacSTN's add-on repository
+url: 'https://github.com/home-assistant/addons-example'
+maintainer: MaxMacSTN/Magi 
