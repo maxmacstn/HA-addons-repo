@@ -1,14 +1,23 @@
 name: "RTSP2MJPEG"
-description: "Convert RTSP stream to mjpeg stream"
+description: "Convert RTSP stream to mjpeg streams"
 version: "1.0.0"
 slug: "rtsp2mjpeg"
+
 arch:
   - aarch64
   - amd64
   - armhf
   - armv7
   - i386
-ports: 
+ports:
   80/tcp: 9090
-map:
-  - 
+
+options:
+  cameras:
+    - name: cam_1
+      url: "rtsp://xxxxx:xxxxx@192.168.1.xx/xxxxxxx"
+
+schema:
+  cameras:
+    - name: str
+      url: url

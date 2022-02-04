@@ -1,25 +1,54 @@
-# Create container
+# Config camera sources
 
-To create a container image called rtspmpeg:
+To config camera sources, go to configuration tab and enter your cameras RTSP URL.
 
-```
-docker build -t rtspmpeg .
-```
-
-# Set up
-
-Create a cgi-bin folder, put suitably edited versions of samplestream and sampleframe in there and link it to the docker volume /var/www/cgi-bin when running the container.
-
-# Run container
+Example
 
 ```
-docker run --restart always -d -p 8080:80 -v my_cgi_bin_folder:/var/www/cgi-bin --name rtspmpeg-server rtspmpeg
+cameras:
+  - name: cam_1
+    url: rtsp://admin:admin2@192.168.1.xxx/cam/realmonitor?channel=1&subtype=00
 ```
 
 # Viewing
 
-You can view the pages via http://server:port/cgi-bin/samplestream and http://server:port/cgi-bin/sampleframe
+You can obtain MJPEG url and still image url (jpeg) using the following urls
+
+MJPEG:
+
+```
+http://<host-ip-address>:9090/cgi-bin/<name>/mjpeg.cgi
+```
+
+IMAGE:
+
+```
+http://<host-ip-address>:9090/cgi-bin/<name>/image.cgi
+```
+
+# Casting to Google Cast device
+To cast the video stream to Google Cast devices (Google Nest Hub or Android TV). Call service `media_player.play_media` in Home Assistant with the following data:
+```
+service: media_player.play_media
+data:
+  media_content_id: http://<host-ip-address>:9090/cgi-bin/<name>/mjpeg.cgi
+  media_content_type: image/jpeg
+target:
+  entity_id: media_player.your_google_cast_entity
+
+```
+
+***Make sure to stop the streaming or call service `media_player.media_stop` after finished watching the stream, otherwise it will continuously processing the stream and consume the system's resources. ***
+
+# Security warnings
+This integration does not encrypt or having any authentication for the stream. Therefore, anyone in the network can access and view the camera's live feed using the url. Make sure to use this add-on only in your private network. 
+
 
 # Acknowledgements
 
-Based on https://stevethemoose.blogspot.com/2021/07/converting-rtsp-to-mjpeg-stream-on.html
+This Home Assistant add-on is based on
+
+- https://stevethemoose.blogspot.com/2021/07/converting-rtsp-to-mjpeg-stream-on.html
+- https://github.com/piersfinlayson/rtspmpeg
+
+
