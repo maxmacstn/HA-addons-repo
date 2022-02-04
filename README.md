@@ -38,7 +38,7 @@ target:
 
 ```
 
-***Make sure to stop the streaming or call service `media_player.media_stop` after finished watching the stream, otherwise it will continuously processing the stream and consume the system's resources. ***
+___Make sure to stop the streaming or call service `media_player.media_stop` after finished watching the stream, otherwise it will continuously processing the stream and consuming your system's resources.___
 
 # Security warnings
 This integration does not encrypt or having any authentication for the stream. Therefore, anyone in the network can access and view the camera's live feed using the url. Make sure to use this add-on only in your private network. 
